@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	http://code.alibabatech.com/schema/dubbo 
+	http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+	<!-- 1.配置应用名称 -->
+	<dubbo:application name="jt-dubbo-order"/>
+	<!-- 2.配置zookeeper的IP地址和端口号 -->
+	<dubbo:registry timeout="900000" address="zookeeper://192.168.138.99:2181"></dubbo:registry>
+	<!-- 3.设置端口号,消费者通过网络访问提供者 -->
+	<dubbo:protocol port="20887" name="dubbo"></dubbo:protocol>
+	<!-- 4.配置实现类,创建对象 -->
+	<bean id="orderService" class="com.jt.order.service.OrderServiceImpl"></bean>
+	<!-- 5.公开对象,公开后,消费者才能通过网络访问 -->
+	<dubbo:service timeout="900000" interface="com.jt.order.service.OrderService" ref="orderService"></dubbo:service>
+	
+	
+</beans>
